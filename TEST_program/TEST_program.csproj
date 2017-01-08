@@ -36,6 +36,9 @@
     <Reference Include="ClassLibrary_Windroid.Web.api">
       <HintPath>..\ClassLibrary_Windroid.Web.api\bin\Debug\ClassLibrary_Windroid.Web.api.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\Downloads\Json90r1\Bin\netstandard1.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +52,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />
+    <Compile Include="TransResult.cs" />
+    <Compile Include="trans_result.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

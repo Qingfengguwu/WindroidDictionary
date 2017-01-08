@@ -104,7 +104,7 @@ namespace ClassLibrary_Windroid.Web.api
         /// </summary>
         /// <param name="str">符合json规则的字符串</param>
         /// <returns>汉字</returns>
-        public static string unicodeToGB2312(string str)
+        public static string UnicodeToGB2312(string str)
         {
             string outStr = "";
             Regex reg = new Regex(@"(?i)\\u([0-9a-f]{4})");
@@ -114,7 +114,6 @@ namespace ClassLibrary_Windroid.Web.api
             });
             return outStr;
         }
-
 
 
 

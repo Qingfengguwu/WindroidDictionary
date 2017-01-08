@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary_Windroid.Web.api;
+using Newtonsoft.Json;
 
 namespace TEST_program
 {
@@ -11,10 +12,28 @@ namespace TEST_program
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine(HttpHelper.StrToMD5("hahahaha"));
-            //Request test = new Request("apple","en","zh");
-            //Console.WriteLine(HttpHelper.GetHttpData(test.RequestStr));
-            Console.WriteLine(HttpHelper.unicodeToGB2312("\u82f9\u679c"));
+            Request test = new Request("I Love Microsoft","en", "jp");
+            string json_str = HttpHelper.GetHttpData(test.RequestStr);
+            //Console.WriteLine(json_str);
+            json_str= "["+ json_str + "]";
+
+            TransResult res = new TransResult();
+            List<TransResult> Transresult = JsonConvert.DeserializeObject<List<TransResult>>(json_str);
+            foreach (TransResult transresult in Transresult)
+            {
+                //Console.WriteLine("UserName:" + jobInfo.from + "UserID:" + jobInfo.to);
+                res.from = transresult.from;
+                res.to = transresult.to;
+
+                //res.trans_result.src = transresult.trans_result.src;
+                //res.trans_result.dst = transresult.trans_result.dst;
+            }
+            //Console.WriteLine(HttpHelper.UnicodeToGB2312(res.trans_result.dst));
+
+            res.src = HttpHelper.ExtractValueString(json_str, "src\":\"", "\",\"dst");
+            res.dst = HttpHelper.ExtractValueString(json_str, "dst\":\"", "\"}]}]");
+            Console.WriteLine(HttpHelper.UnicodeToGB2312(res.dst));
+
             Console.ReadKey();
 
         }

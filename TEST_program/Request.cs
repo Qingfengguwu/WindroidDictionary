@@ -13,7 +13,7 @@ namespace TEST_program
         private string q;
         private string from;
         private string to;
-        private static long appid = 0000000000000;//这里是用户appID
+        private static long appid = ;//这里是用户appID
         private int salt;
         private string sign;
         private static string key = "";//这里是密钥
