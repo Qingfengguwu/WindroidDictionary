@@ -123,20 +123,55 @@ namespace TEST_program
                 requestStr = value;
             }
         }
+
+        public static long Appid1
+        {
+            get
+            {
+                return appid;
+            }
+
+            set
+            {
+                appid = value;
+            }
+        }
+
+        public static string Key1
+        {
+            get
+            {
+                return key;
+            }
+
+            set
+            {
+                key = value;
+            }
+        }
         #endregion
 
         public Request(string q,string from,string to)
         {
-            this.q = q;
+            byte[] utf8 = Encoding.UTF8.GetBytes(q);
+            this.q = Encoding.UTF8.GetString(utf8);          
             this.from = from;
             this.to = to;
             salt = HttpHelper.GetTimeStamp();
-            //string sign0 = appid.ToString() + q + salt.ToString() + key;
-            //string sign = HttpHelper.StrToMD5(appid.ToString() + q + salt.ToString() + key);
-            //Console.WriteLine("加密前的sign值："+sign0);
-            //Console.WriteLine("加密后的sign值："+sign);
-            sign = HttpHelper.StrToMD5(appid.ToString() + q + salt.ToString() + key);
-            requestStr = "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + q + "&from=" + from + "&to=" + to + "&appid=" + appid + "&salt=" + salt + "&sign=" + sign;
+            sign = HttpHelper.StrToMD5(appid.ToString() + this.q + salt.ToString() + key);
+            requestStr = "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + UrlEncode(this.q) + "&from=" + from + "&to=" + to + "&appid=" + appid + "&salt=" + salt + "&sign=" + sign;
+        }
+
+        public static string UrlEncode(string str)
+        {
+            StringBuilder sb = new StringBuilder();
+            byte[] byStr = System.Text.Encoding.UTF8.GetBytes(str); //默认是System.Text.Encoding.Default.GetBytes(str)
+            for (int i = 0; i < byStr.Length; i++)
+            {
+                sb.Append(@"%" + Convert.ToString(byStr[i], 16));
+            }
+
+            return (sb.ToString());
         }
 
 

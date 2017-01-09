@@ -12,11 +12,13 @@ namespace TEST_program
     {
         static void Main(string[] args)
         {
-            Request test = new Request("I Love Microsoft","en", "jp");
-            string json_str = HttpHelper.GetHttpData(test.RequestStr);
-            //Console.WriteLine(json_str);
-            json_str= "["+ json_str + "]";
+            Request test = new Request("我爱微软" , "zh" , "jp");
+            //test.RequestStr = "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + Request.UrlEncode(test.Q) + "&from=" + test.From + "&to=" + test.To + "&appid=" + Request.Appid + "&salt=" + test.Salt + "&sign=" + test.Sign;
 
+            string json_str = HttpHelper.GetHttpData(test.RequestStr);
+           
+            json_str= "["+ json_str + "]";
+            Console.WriteLine(json_str);
             TransResult res = new TransResult();
             List<TransResult> Transresult = JsonConvert.DeserializeObject<List<TransResult>>(json_str);
             foreach (TransResult transresult in Transresult)
@@ -37,5 +39,7 @@ namespace TEST_program
             Console.ReadKey();
 
         }
+
+
     }
 }
