@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 using ClassLibrary_Windroid.Web.api;
 using Newtonsoft.Json;
 
+
 namespace TEST_program
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Request test = new Request("我爱微软" , "zh" , "jp");
+            Request test = new Request("I don't know when I don't know when my mother sells", "en" , "zh");
             //test.RequestStr = "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + Request.UrlEncode(test.Q) + "&from=" + test.From + "&to=" + test.To + "&appid=" + Request.Appid + "&salt=" + test.Salt + "&sign=" + test.Sign;
 
             string json_str = HttpHelper.GetHttpData(test.RequestStr);
            
             json_str= "["+ json_str + "]";
-            Console.WriteLine(json_str);
+            Console.WriteLine("返回的json："+json_str);
             TransResult res = new TransResult();
             List<TransResult> Transresult = JsonConvert.DeserializeObject<List<TransResult>>(json_str);
             foreach (TransResult transresult in Transresult)
@@ -34,7 +35,7 @@ namespace TEST_program
 
             res.src = HttpHelper.ExtractValueString(json_str, "src\":\"", "\",\"dst");
             res.dst = HttpHelper.ExtractValueString(json_str, "dst\":\"", "\"}]}]");
-            Console.WriteLine(HttpHelper.UnicodeToGB2312(res.dst));
+            Console.WriteLine("翻译结果："+HttpHelper.UnicodeToGB2312(res.dst));
 
             Console.ReadKey();
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary_Windroid.Web.api;
 using System.Security.Cryptography;
+using System.Web;
 
 namespace TEST_program
 {
@@ -13,10 +14,10 @@ namespace TEST_program
         private string q;
         private string from;
         private string to;
-        private static long appid = ;//这里是用户appID
+        private static long appid = 20161220000034320;//这里是用户appID
         private int salt;
         private string sign;
-        private static string key = "";//这里是密钥
+        private static string key = "pKFMRZQgu5jC4DOQije_";//这里是密钥
         private string requestStr;
 
         #region 访问器
@@ -153,13 +154,19 @@ namespace TEST_program
 
         public Request(string q,string from,string to)
         {
-            byte[] utf8 = Encoding.UTF8.GetBytes(q);
-            this.q = Encoding.UTF8.GetString(utf8);          
+            //byte[] b = System.Text.Encoding.UTF8.GetBytes(q);
+            //string str_1 = System.Text.Encoding.UTF8.GetString(b);
+            //this.q = HttpUtility.UrlEncode(q, Encoding.UTF8);
+            this.q = q;          
             this.from = from;
             this.to = to;
             salt = HttpHelper.GetTimeStamp();
-            sign = HttpHelper.StrToMD5(appid.ToString() + this.q + salt.ToString() + key);
-            requestStr = "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + UrlEncode(this.q) + "&from=" + from + "&to=" + to + "&appid=" + appid + "&salt=" + salt + "&sign=" + sign;
+            string sign0 = appid + this.q + salt.ToString() + key;
+            sign = HttpHelper.StrToMD5(sign0);
+            Console.WriteLine("签名："+sign);          
+            requestStr = "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + HttpUtility.UrlEncode(q, Encoding.UTF8) + "&from=" + from + "&to=" + to + "&appid=" + appid + "&salt=" + salt + "&sign=" + sign;
+            //requestStr = HttpUtility.UrlEncode(requestStr, Encoding.UTF8);
+            Console.WriteLine("请求URL是："+requestStr);
         }
 
         public static string UrlEncode(string str)
