@@ -14,10 +14,10 @@ namespace TEST_program
         private string q;
         private string from;
         private string to;
-        private static long appid = 000000000000000000;//这里是用户appID
+        private static long appid = 20161220000034320;//这里是用户appID
         private int salt;
         private string sign;
-        private static string key = "";//这里是密钥
+        private static string key = "pKFMRZQgu5jC4DOQije_";//这里是密钥
         private string requestStr;
 
         #region 访问器

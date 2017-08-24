@@ -12,8 +12,8 @@ namespace TEST_program
     class Program
     {
         static void Main(string[] args)
-        {
-            Request test = new Request("I don't know when I don't know when my mother sells", "en" , "zh");
+        {                                               
+            Request test = new Request("我就不信解决不了", "zh" , "en");
             //test.RequestStr = "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + Request.UrlEncode(test.Q) + "&from=" + test.From + "&to=" + test.To + "&appid=" + Request.Appid + "&salt=" + test.Salt + "&sign=" + test.Sign;
 
             string json_str = HttpHelper.GetHttpData(test.RequestStr);
